@@ -2,7 +2,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "3.0.1"
+      version = "3.0.0"
     }
   }
 }
@@ -14,10 +14,10 @@ resource "docker_image" "nginx_image" {
 }
 
 resource "docker_container" "nginx_container" {
-  name  = "web-server"
+  name  = "webserver-${terraform.workspace}"
   image = docker_image.nginx_image.image_id
   ports {
     internal = var.internal_port
-    external = var.external_port
+    external = terraform.workspace == "prod" ? var.external_port_prod : var.external_port_dev
   }
 }

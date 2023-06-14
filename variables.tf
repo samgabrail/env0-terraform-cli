@@ -14,7 +14,13 @@ variable "internal_port" {
   default     = 80
 }
 
-variable "external_port" {
+variable "external_port_dev" {
+  type        = number
+  description = "The external port number for the container"
+  default     = 8090
+}
+
+variable "external_port_prod" {
   type        = number
   description = "The external port number for the container"
   default     = 8080
